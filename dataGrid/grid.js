@@ -92,92 +92,118 @@ $(() => {
     })
     .dxDataGrid('instance')
 
-  const p2 = $('#grid2').dxDataGrid({
-    dataSource: tab2,
-    keyExpr: 'id',
-    editing: {
-      mode: 'popup',
-      allowUpdating: true,
-      popup: {
-        title: 'list plant',
-        showTitle: true,
-        width: 700,
-        height: 525,
-      },
-    },
-    columns: [
-      'nomAction',
-      'PA',
-      {
-        dataField: 'date',
-        dataType: 'date',
-      },
-      {
-        dataField: 'StateId',
+  $('#popupContainer')
+    .dxPopup({
+      title: 'Popup Title',
+    })
+    .dxPopup('instance')
 
-        cellTemplate(container, options) {
-          // console.log('container', container)
-          console.log(options)
-          const { data } = options
-          console.log(data.StateId)
-          switch (data.StateId) {
-            case 1:
-              return $('<div>')
-                .append(
-                  $('<img>', {
-                    src:
-                      'https://cdn-icons-png.flaticon.com/512/4909/4909724.png',
-                  }).css({
-                    width: '25px',
-                    height: '20px',
-                  }),
-                )
-                .appendTo(container)
-            case 2:
-              return $('<div>')
-                .append(
-                  $('<img>', {
-                    src:
-                      'https://cdn.icon-icons.com/icons2/1572/PNG/512/3592869-compose-create-edit-edit-file-office-pencil-writing-creative_107746.png',
-                  }).css({
-                    width: '25px',
-                    height: '20px',
-                  }),
-                )
-                .appendTo(container)
-            case 3:
-              return $('<div>')
-                .append(
-                  $('<img>', {
-                    src:
-                      'https://cdn.icon-icons.com/icons2/1508/PNG/512/anydo_104098.png',
-                  }).css({
-                    width: '25px',
-                    height: '20px',
-                  }),
-                )
-                .appendTo(container)
-            default:
-              return $('<div>')
-                .append(
-                  $('<img>', {
-                    src:
-                      'https://cdn-icons-png.flaticon.com/512/4909/4909724.png',
-                  }).css({
-                    width: '25px',
-                    height: '20px',
-                  }),
-                )
-                .appendTo(container)
-          }
-        },
-        lookup: {
-          dataSource: states,
-          valueExpr: 'ID',
-          displayExpr: 'name',
-        },
+  const p2 = $('#grid2')
+    .dxDataGrid({
+      dataSource: tab2,
+      keyExpr: 'id',
+      editing: {
+        // mode: label,
+        // allowUpdating: true,
       },
-    ],
-    showBorders: true,
-  })
+      columns: [
+        {
+          // dataField: 'image',
+          cellTemplate: function (container, options) {
+            console.log(options)
+            $('<div> ')
+              .append(
+                $('<img>', {
+                  src:
+                    'https://cdn.icon-icons.com/icons2/916/PNG/512/Edit_icon-icons.com_71853.png',
+                }).css({
+                  width: '25px',
+                  height: '20px',
+                }),
+              )
+              .click(() => {
+                // label.option('value', options.data)
+                $('#popupContainer').dxPopup('show')
+
+                console.log('hi')
+              })
+              .appendTo(container)
+          },
+        },
+
+        'nomAction',
+        'PA',
+        {
+          dataField: 'date',
+          dataType: 'date',
+        },
+        {
+          dataField: 'StateId',
+
+          cellTemplate(container, options) {
+            // console.log('container', container)
+            // console.log(options)
+            const { data } = options
+            // console.log(data.StateId)
+            switch (data.StateId) {
+              case 1:
+                return $('<div>')
+                  .append(
+                    $('<img>', {
+                      src:
+                        'https://cdn-icons-png.flaticon.com/512/4909/4909724.png',
+                    }).css({
+                      width: '25px',
+                      height: '20px',
+                    }),
+                  )
+                  .appendTo(container)
+              case 2:
+                return $('<div>')
+                  .append(
+                    $('<img>', {
+                      src:
+                        'https://cdn.icon-icons.com/icons2/1572/PNG/512/3592869-compose-create-edit-edit-file-office-pencil-writing-creative_107746.png',
+                    }).css({
+                      width: '25px',
+                      height: '20px',
+                    }),
+                  )
+                  .appendTo(container)
+              case 3:
+                return $('<div>')
+                  .append(
+                    $('<img>', {
+                      src:
+                        'https://cdn.icon-icons.com/icons2/1508/PNG/512/anydo_104098.png',
+                    }).css({
+                      width: '25px',
+                      height: '20px',
+                    }),
+                  )
+                  .appendTo(container)
+              default:
+                return $('<div>')
+                  .append(
+                    $('<img>', {
+                      src:
+                        'https://cdn-icons-png.flaticon.com/512/4909/4909724.png',
+                    }).css({
+                      width: '25px',
+                      height: '20px',
+                    }),
+                  )
+                  .appendTo(container)
+            }
+          },
+          lookup: {
+            dataSource: states,
+            valueExpr: 'ID',
+            displayExpr: 'name',
+          },
+        },
+      ],
+      showBorders: true,
+    })
+    .dxDataGrid('instance')
 })
