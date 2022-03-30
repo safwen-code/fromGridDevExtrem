@@ -45,6 +45,8 @@ const responsables = [
   { ID: 3, name: 'omaima' },
 ]
 
+const users = ['safwen', 'rim', 'omaima', 'mehdi']
+
 $(() => {
   const form = $('#form')
     .dxForm({
@@ -61,7 +63,13 @@ $(() => {
       //configure item
       items: [
         'nom',
-        'utilistateur',
+        {
+          dataField: 'utilistateur',
+          editorType: 'dxSelectBox',
+          editorOptions: {
+            items: users,
+          },
+        },
         {
           dataField: 'hireDate',
           editorType: 'dxDateBox',
@@ -84,15 +92,6 @@ $(() => {
             placeholder: 'Add notes...',
           },
         },
-        //   add button
-        // {
-        //   itemType: 'button',
-        //   horizontalAlignment: 'center',
-        //   buttonOptions: {
-        //     text: 'Submit',
-        //     useSubmitBehavior: true,
-        //   },
-        // },
       ],
     })
     .dxForm('instance')
@@ -101,9 +100,9 @@ $(() => {
     .dxDataGrid({
       dataSource: customers,
       editing: {
-        mode: 'cell',
+        mode: 'row',
         allowAdding: true,
-        allowUpdating: true,
+        // allowUpdating: true,
       },
       keyExpr: 'ID',
       columns: [
