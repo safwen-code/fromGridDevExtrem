@@ -138,10 +138,13 @@ $(() => {
       },
       keyExpr: 'ID',
       columns: [
-        'Action',
+        {
+          dataField: 'Action',
+          validationRules: [{ type: 'required' }],
+        },
         {
           dataField: 'responsable',
-
+          validationRules: [{ type: 'required' }],
           lookup: {
             dataSource: responsables,
             valueExpr: 'ID',
@@ -152,10 +155,11 @@ $(() => {
         {
           dataField: 'delai',
           dataType: 'date',
+          validationRules: [{ type: 'required' }],
         },
         {
           dataField: 'StateId',
-
+          validationRules: [{ type: 'required' }],
           lookup: {
             dataSource: states,
             valueExpr: 'ID',
@@ -178,25 +182,23 @@ $(() => {
     // console.log('datagrid', grid)
     const formInfo = form.option('formData')
     // console.log('forminfo', formInfo)
+    const gridInfo = grid.option('dataSource')
+    // console.log('gridInfo', gridInfo)
+
     let tab = []
-    // const { description, etat, hireDate, nom, utilistateur } = formInfo
     if (
-      formInfo.description.length === 0 &&
-      formInfo.etat.length === 0 &&
-      formInfo.hireDate.length === 0 &&
-      formInfo.nom.length === 0 &&
+      formInfo.description.length === 0 ||
+      formInfo.etat.length === 0 ||
+      formInfo.hireDate.length === 0 ||
+      formInfo.nom.length === 0 ||
       formInfo.utilistateur.length === 0
     ) {
       console.log('hoyyyyyyyyyy')
     } else {
       tab.unshift(formInfo)
-      console.log(tab)
+      tab.unshift(gridInfo)
+      // tab.unshift(gridInfo)
+      console.log('tab', tab)
     }
-    // const gridInfo = grid.option('dataSource')
-    // console.log('gridInfo', gridInfo)
-    // tab.unshift(formInfo)
-    // tab.unshift(gridInfo)
-    // // tab.unshift(gridInfo)
-    // console.log('tab', tab)
   })
 })
