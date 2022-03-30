@@ -11,14 +11,35 @@ const tab1 = [
     nomAction: 'rim',
     date: '12/02/2021',
     nomUtilisateur: 'foulen',
-    StateId: 1,
+    StateId: 2,
   },
   {
-    id: 3,
-    nomAction: 'mehdi',
+    id: 4,
+    nomAction: 'front',
     date: '12/02/2022',
     nomUtilisateur: 'foulen',
     StateId: 1,
+  },
+  {
+    id: 5,
+    nomAction: 'create form',
+    date: '12/02/2022',
+    nomUtilisateur: 'foulen',
+    StateId: 3,
+  },
+  {
+    id: 6,
+    nomAction: 'developper interface',
+    date: '12/02/2022',
+    nomUtilisateur: 'foulen',
+    StateId: 1,
+  },
+  {
+    id: 7,
+    nomAction: 'concepter',
+    date: '12/02/2022',
+    nomUtilisateur: 'foulen',
+    StateId: 2,
   },
 ]
 
@@ -65,13 +86,36 @@ $(() => {
   const grid = $('#grid')
     .dxDataGrid({
       dataSource: tab1,
+      keyExpr: 'id',
+
+      allowColumnReordering: true,
+      showBorders: true,
+      grouping: {
+        autoExpandAll: true,
+      },
+      searchPanel: {
+        visible: true,
+      },
+      groupPanel: {
+        visible: true,
+      },
+      filterRow: {
+        visible: true,
+      },
+
+      // headerFilter: {
+      //   visible: true,
+      // },
+
       editing: {
         mode: 'cell',
         allowUpdating: true,
       },
-      keyExpr: 'id',
       columns: [
-        'nomAction',
+        {
+          dataField: 'nomAction',
+          groupIndex: 0,
+        },
         'nomUtilisateur',
         {
           dataField: 'date',
@@ -99,13 +143,13 @@ $(() => {
       editing: {
         mode: 'row',
         // mode: label,
-        // allowUpdating: true,
+        // allowAdding: true,
       },
       columns: [
         {
           // dataField: 'image',
           cellTemplate: function (container, options) {
-            console.log(options)
+            // console.log(options)
             const { id } = options.data
 
             $('<div> ')
@@ -214,3 +258,5 @@ $(() => {
     })
     .dxDataGrid('instance')
 })
+
+//groupping
