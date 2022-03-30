@@ -92,17 +92,12 @@ $(() => {
     })
     .dxDataGrid('instance')
 
-  $('#popupContainer')
-    .dxPopup({
-      title: 'Popup Title',
-    })
-    .dxPopup('instance')
-
   const p2 = $('#grid2')
     .dxDataGrid({
       dataSource: tab2,
       keyExpr: 'id',
       editing: {
+        mode: 'row',
         // mode: label,
         // allowUpdating: true,
       },
@@ -111,6 +106,8 @@ $(() => {
           // dataField: 'image',
           cellTemplate: function (container, options) {
             console.log(options)
+            const { id } = options.data
+
             $('<div> ')
               .append(
                 $('<img>', {
@@ -122,10 +119,19 @@ $(() => {
                 }),
               )
               .click(() => {
-                // label.option('value', options.data)
+                var frame = $('<iframe>', {
+                  src: `form.html?id=${id}`,
+                  style: 'height:600px;width:500px;',
+                })
+                $('#popupContainer')
+                  .dxPopup({
+                    title: 'show information',
+                    contentTemplate: function (contentElement) {
+                      contentElement.append(frame)
+                    },
+                  })
+                  .dxPopup('instance')
                 $('#popupContainer').dxPopup('show')
-
-                console.log('hi')
               })
               .appendTo(container)
           },
@@ -136,6 +142,7 @@ $(() => {
         {
           dataField: 'date',
           dataType: 'date',
+          editorType: 'dxDateBox',
         },
         {
           dataField: 'StateId',
