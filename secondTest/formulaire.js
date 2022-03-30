@@ -62,17 +62,37 @@ $(() => {
       colCount: 2,
       //configure item
       items: [
-        'nom',
+        {
+          dataField: 'nom',
+          validationRules: [
+            {
+              type: 'required',
+              message: 'nom is required',
+            },
+          ],
+        },
         {
           dataField: 'utilistateur',
           editorType: 'dxSelectBox',
           editorOptions: {
             items: users,
           },
+          validationRules: [
+            {
+              type: 'required',
+              message: 'utilisateur is required',
+            },
+          ],
         },
         {
           dataField: 'hireDate',
           editorType: 'dxDateBox',
+          validationRules: [
+            {
+              type: 'required',
+              message: 'data is required',
+            },
+          ],
         },
         {
           dataField: 'etat',
@@ -83,6 +103,12 @@ $(() => {
             items: etat,
             value: '',
           },
+          validationRules: [
+            {
+              type: 'required',
+              message: 'etat is required',
+            },
+          ],
         },
         {
           dataField: 'description',
@@ -91,6 +117,12 @@ $(() => {
             height: 90,
             placeholder: 'Add notes...',
           },
+          // validationRules: [
+          //   {
+          //     type: 'required',
+          //     message: 'description is required',
+          //   },
+          // ],
         },
       ],
     })
@@ -142,18 +174,29 @@ $(() => {
   })
 
   $('#form-container').on('submit', (e) => {
-    // console.log(e)
-    // console.log(form)
     e.preventDefault()
     // console.log('datagrid', grid)
-    const gridInfo = grid.option('dataSource')
-    console.log('gridInfo', gridInfo)
     const formInfo = form.option('formData')
-    console.log('forminfo', formInfo)
+    // console.log('forminfo', formInfo)
     let tab = []
-    tab.unshift(formInfo)
-    tab.unshift(gridInfo)
+    // const { description, etat, hireDate, nom, utilistateur } = formInfo
+    if (
+      formInfo.description.length === 0 &&
+      formInfo.etat.length === 0 &&
+      formInfo.hireDate.length === 0 &&
+      formInfo.nom.length === 0 &&
+      formInfo.utilistateur.length === 0
+    ) {
+      console.log('hoyyyyyyyyyy')
+    } else {
+      tab.unshift(formInfo)
+      console.log(tab)
+    }
+    // const gridInfo = grid.option('dataSource')
+    // console.log('gridInfo', gridInfo)
+    // tab.unshift(formInfo)
     // tab.unshift(gridInfo)
-    console.log('tab', tab)
+    // // tab.unshift(gridInfo)
+    // console.log('tab', tab)
   })
 })
